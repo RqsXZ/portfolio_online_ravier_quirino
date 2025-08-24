@@ -1,6 +1,6 @@
 # Portfólio de Ravier Quirino | Engenharia Mecânica, Data Science & Tecnologia
 
-![início da Página](https://github.com/user-attachments/assets/7a69a322-a74a-47cb-999d-d9eb0a070456)
+![início da página](https://github.com/user-attachments/assets/bc20597e-a6f0-4944-b0ca-321e503727fd)
 
 Portfolio pessoal de Ravier Quirino, Engenheiro Mecânico com foco em Data Science, Inteligência Artificial e Tecnologia. A página foi desenvolvida para apresentar minhas habilidades, experiência profissional, certificações e projetos, destacando minha paixão pela engenharia e pela inovação no mundo digital.
 Também visa apresentar meus interesses para que, se assim você desejar, entremos em contato para tratar do mundo da tecnologia e conversar sobre o que podemos esperar do futuro próximo.

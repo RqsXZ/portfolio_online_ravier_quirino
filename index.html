@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Como este é um projeto pessoal, os códigos CSS, HTML e JavaScript foram
+     mantidos no mesmo arquivo por conforto e praticidade, embora o ideal seja
+     sua separação em arquivos diferentes. =)->-< -->
+
+<head>
+    <!-- ======================================================= -->
+    <!--! METADADOS E CONFIGURAÇÕES GLOBAIS                       -->
+    <!-- ======================================================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets\images\favicon.ico" type="image/x-icon">
+    <title>Ravier Quirino | Engenharia Mecânica, Data Science & Tecnologia</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- ======================================================= -->
+    <!--! ESTILOS CSS EMBUTIDOS                                   -->
+    <!-- ======================================================= -->
+    <style>
+        /* --------------------------------------------------------
+        * 1. VARIÁVEIS E RESET GERAL
+        * ----------------------------------------------------- */
+        :root {
+            --bg-color: #121212;
+            --primary-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --highlight-color: #8A2BE2; /* Roxo/Azul vibrante para o brilho */
+            --secondary-text-color: #a0a0a0;
+            --border-color: #333333;
+            --header-height: 70px; /* Variável para a altura do header */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-height);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        body.modal-open, body.nav-open {
+            overflow: hidden;
+        }
+
+        /* --------------------------------------------------------
+        * 2. ESTILOS DE FUNDO (SLIDESHOW)
+        * ----------------------------------------------------- */
+        #slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background-color: var(--bg-color);
+        }
+
+        .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(30%);
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out;
+        }
+        
+        /* --------------------------------------------------------
+        * 3. COMPONENTES GLOBAIS E UTILITÁRIOS
+        * ----------------------------------------------------- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            margin-top: var(--header-height);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--highlight-color);
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--secondary-text-color);
+        }
+
+        /* --------------------------------------------------------
+        * 4. CABEÇALHO E NAVEGAÇÃO (HEADER)
+        * ----------------------------------------------------- */
+        .header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Garante que o container ocupe toda a largura */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.5rem;
+            z-index: 1001; /* Garante que o logo fique sobre o menu mobile */
+        }
+        
+        .logo svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--text-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link a {
+            font-weight: 400;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-link a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--highlight-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link a:hover::after,
+        .nav-link a.active::after {
+            width: 100%;
+        }
+
+        /* Botão do Menu Hambúrguer (invisível em telas grandes) */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .nav-toggle .hamburger {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+            display: block;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-toggle .hamburger::before,
+        .nav-toggle .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+
+        .nav-toggle .hamburger::before {
+            top: -8px;
+        }
+
+        .nav-toggle .hamburger::after {
+            top: 8px;
+        }
+
+        /* Animação do Hambúrguer para 'X' */
+        .nav-open .nav-toggle .hamburger {
+            transform: rotate(45deg);
+        }
+        .nav-open .nav-toggle .hamburger::before {
+            top: 0;
+            transform: rotate(90deg);
+        }
+        .nav-open .nav-toggle .hamburger::after {
+            top: 0;
+            transform: rotate(90deg);
+        }
+
+
+        /* --------------------------------------------------------
+        * 5. SEÇÕES DA PÁGINA (HERO, ABOUT, EXPERIENCE, ETC.)
+        * ----------------------------------------------------- */
+        /* --- Seção Hero --- */
+        .hero {
+            text-align: center;
+            padding: 180px 0 100px 0;
+            display: flex; /* Adicionado para centralização vertical */
+            align-items: center; /* Adicionado para centralização vertical */
+            min-height: 80vh; /* Garante altura mínima */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--secondary-text-color);
+            font-weight: 300;
+        }
+
+        /* ------------------------------------------------------- */
+        /*    Estilos do main_video                                */
+        /* ------------------------------------------------------- */
+        #video-presentation {
+            padding-top: 50px; 
+            padding-bottom: 100px;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 25px 0 rgba(138, 43, 226, 0.2);
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+
+        /* --- Seção About --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .about-text .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .about-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .about-text .subtitle {
+            font-size: 1rem;
+            color: var(--secondary-text-color);
+            margin-bottom: 25px;
+        }
+
+        .about-text .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .about-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 25px 0 rgba(138, 43, 226, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .about-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        /* --- Seção Experience --- */
+        .experience-content p {
+            margin-bottom: 1.5em;
+        }
+        .experience-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .certificate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .certificate-frame {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            aspect-ratio: 16 / 11;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            animation: subtle-float 8s ease-in-out infinite;
+            overflow: hidden; 
+            cursor: pointer;
+        }
+
+        .certificate-frame:hover {
+            border-color: var(--highlight-color);
+            transform: translateY(-5px);
+        }
+
+        .certificate-frame img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+        }
+
+        /* --- Seção Projects --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px 0 rgba(138, 43, 226, 0.25);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-card-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .project-card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .project-card-content p {
+            color: var(--secondary-text-color);
+            font-size: 0.9rem;
+        }
+        
+        /* --- Seção Skills --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .skill-card {
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            color: var(--highlight-color);
+        }
+
+        /* --- Seção Contact --- */
+        #contact {
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .contact-link a svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--secondary-text-color);
+            transition: fill 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-link a:hover svg {
+            fill: var(--highlight-color);
+            transform: scale(1.1);
+        }
+
+        /* --------------------------------------------------------
+        * 6. MODAL (LIGHTBOX) PARA CERTIFICADOS
+        * ----------------------------------------------------- */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        #modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #modal-close:hover {
+            color: var(--highlight-color);
+            transform: scale(1.2);
+        }
+
+
+        /* --------------------------------------------------------
+        * 7. ANIMAÇÕES E EFEITOS
+        * ----------------------------------------------------- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes subtle-float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Animação de Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --------------------------------------------------------
+        * 8. RESPONSIVIDADE (MEDIA QUERIES)
+        * ----------------------------------------------------- */
+        
+        /* Telas de tablet e menores (até 992px) */
+        @media (max-width: 992px) {
+            .about-grid {
+                gap: 30px;
+            }
+        }
+
+
+        /* Telas de celular (até 768px) */
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px; /* Altura do header menor */
+            }
+            
+            html {
+                scroll-padding-top: var(--header-height);
+            }
+
+            section {
+                padding: 80px 0;
+            }
+            
+            .section-header h2 { font-size: 2.2rem; }
+            .section-header h3 { font-size: 1.6rem; }
+
+            /* --- Header e Navegação Mobile --- */
+            .nav-toggle {
+                display: block; /* Mostra o botão hambúrguer */
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-link a {
+                font-size: 1.5rem;
+            }
+
+            /* --- Seção Hero --- */
+            .hero {
+                padding: 140px 0 80px 0;
+                min-height: 60vh;
+            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+
+            /* --- Seção About --- */
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .about-text .profile-pic {
+                margin: 0 auto 20px auto;
+            }
+            
+            .about-text .tagline {
+                font-size: 1.3rem;
+            }
+
+            .about-image {
+                margin-top: 40px;
+                order: -1; /* Move a imagem para cima do texto */
+            }
+        }
+
+        /* Telas menores de celular (até 480px) */
+        @media (max-width: 480px) {
+             section {
+                padding: 60px 0;
+            }
+             .hero h1 { font-size: 2rem; }
+             .hero p { font-size: 1rem; }
+
+            .section-header h2 { font-size: 1.8rem; }
+            .section-header p {
+                padding: 0 10px;
+            }
+
+            .certificate-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .skill-card {
+                padding: 20px;
+            }
+
+            .contact-links {
+                gap: 20px;
+            }
+
+            #modal-close {
+                top: 15px;
+                right: 20px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ======================================================= -->
+    <!--! FUNDO ANIMADO (SLIDESHOW)                             -->
+    <!-- ======================================================= -->
+    <div id="slideshow-container">
+        <div class="slideshow-image"></div>
+        <div class="slideshow-image"></div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!--! CABEÇALHO E NAVEGAÇÃO PRINCIPAL                       -->
+    <!-- ======================================================= -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Caminhos do SVG mantidos como no original -->
+                    <path d="M50,10A40,40,0,1,0,90,50,40,40,0,0,0,50,10ZM50,82A32,32,0,1,1,82,50,32,32,0,0,1,50,82Z"/>
+                    <path d="M50,22.5A27.5,27.5,0,1,0,77.5,50,27.5,27.5,0,0,0,50,22.5ZM50,72.5A22.5,22.5,0,1,1,72.5,50,22.5,22.5,0,0,1,50,72.5Z"/>
+                    <path d="M56.25,43.75a6.25,6.25,0,1,0-12.5,0a6.25,6.25,0,0,0,12.5,0Z"/>
+                    <path d="M43.75,56.25a6.25,6.25,0,1,0,12.5,0a6.25,6.25,0,0,0-12.5,0Z"/>
+                    <path d="M31.25,43.75a6.25,6.25,0,1,0,0-12.5a6.25,6.25,0,0,0,0,12.5Z"/>
+                    <path d="M68.75,68.75a6.25,6.25,0,1,0,0-12.5a6.25,6.25,0,0,0,0,12.5Z"/>
+                    <path d="M31.25,68.75a6.25,6.25,0,1,0-12.5,0a6.25,6.25,0,0,0,12.5,0Z"/>
+                    <path d="M68.75,31.25a6.25,6.25,0,1,0,12.5,0a6.25,6.25,0,0,0-12.5,0Z"/>
+                </svg>
+            </a>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li class="nav-link"><a href="#about" class="active">Sobre</a></li>
+                    <li class="nav-link"><a href="#video-presentation">Apresentação</a></li>
+                    <li class="nav-link"><a href="#experience">Experiência</a></li>
+                    <li class="nav-link"><a href="#projects">Projetos</a></li>
+                    <li class="nav-link"><a href="#skills">Habilidades</a></li>
+                    <li class="nav-link"><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+
+            <!-- Botão Hambúrguer -->
+            <button class="nav-toggle" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- O resto do seu conteúdo HTML permanece o mesmo -->
+    
+    <main>
+        <!-- --------------------------------------------------------
+        * SEÇÃO HERO
+        * ----------------------------------------------------- -->
+        <section class="hero" id="home"> <!-- Adicionado ID para link do logo -->
+            <div class="container">
+                <h1 class="reveal">Ravier Quirino</h1>
+                <p class="reveal">Engenharia Mecânica | Data Science | IA e Tecnologia</p>
+            </div>
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- ! INÍCIO DA Seção do Vídeo           -->
+        <!-- ======================================================= -->
+        <section id="video-presentation" class="container reveal">
+            <div class="section-header">
+                <h2>O Futuro é Agora</h2>
+                <p>Confira um resumo do que já estamos vivendo.</p>
+            </div>
+            <div class="video-container">
+                <!-- Certifique-se de que o caminho para o poster e para o vídeo estejam corretos. -->
+                <video controls poster="assets\main_video\main_video_thumbnail.jpg">
+                    <source src="assets\main_video\main-video_compressed.mp4" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
+            </div>
+        </section>
+        <!-- ======================================================= -->
+        <!-- ! FIM DA Seção do Vídeo              -->
+        <!-- ======================================================= -->
+
+        <!-- --------------------------------------------------------
+        * SEÇÃO SOBRE (ABOUT)
+        * ----------------------------------------------------- -->
+        <section id="about" class="container">
+            <div class="about-grid reveal">
+                <div class="about-text">
+                    <img src="/assets/images/profile_picture.png" alt="Foto de Ravier Quirino" class="profile-pic">
+                    <h2>Ravier Quirino</h2>
+                    <p class="subtitle">Engenheiro Mecânico com foco em Data Science e IA | Python • Análise de Dados • Excel VBA | Inglês Fluente | Espanhol Intermediário</p>
+                    <p class="tagline">“A Inteligência Artificial é mais que uma tecnologia, é uma revolução.”</p>
+                </div>
+                <div class="about-image">
+                    <div class="about-slide"></div>
+                    <div class="about-slide"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------
+        * SEÇÃO EXPERIÊNCIA
+        * ----------------------------------------------------- -->
+        <section id="experience" class="container">
+            <div class="section-header reveal">
+                <h2>Experiência Profissional</h2>
+                <div class="experience-content">
+                    <p>Desde pequeno, sempre fui movido pela curiosidade: como as coisas funcionam? Essa inquietação me levou à engenharia — uma área onde planejar, projetar e dar vida a máquinas é mais do que trabalho, é paixão.</p>
+                    <p>Com o tempo, percebi que a engenharia está passando por uma transformação profunda. O mundo físico se entrelaça cada vez mais com o digital, e os dados se tornaram o novo combustível da inovação. Um bom insight, uma previsão precisa de mercado, pode ser tão valioso quanto uma grande invenção.</p>
+                    <p>Por isso, venho me especializando em Data Science, Análise de Dados e Inteligência Artificial. Meu propósito é integrar essas tecnologias à engenharia de forma estratégica, ajudando empresas a otimizarem seus processos, reduzirem custos e tomarem decisões mais inteligentes e sustentáveis.</p>
+                    <p>Gostaria de saber um pouco mais sobre o que venho estudando? Confira abaixo minhas principais certificações e projetos.</p>
+                </div>
+            </div>
+            <div class="certificate-grid">
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\UNIP - Diploma de Graduação em Engenharia Mecânica (UNIP) - Ravier Quirino da Silva.jpg" alt="Diploma de Graduação em Engenharia Mecânica - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Cambridge University - First Certificate in English - Ravier Quirino da Silva.jpg" alt="First Certificate in English - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Oracle University - AI Foundations Associate Certificate.png" alt="AI Foundations Associate Certificate - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Oracle University - Cloud Foundations Associate Certificate.jpg" alt="Cloud Foundations Associate Certificate - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Alura & Oracle - Conclusão do Programa G8 ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Conclusão do Programa G8 ONE - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Alura & Oracle - Modelagem de Dados com Python G8 - ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Modelagem de Dados com Python G8 - ONE - Ravier Quirino da Silva">
+                </div>  
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Alura & Oracle - Formação - Desenvolvimento Pessoal G8 - ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Formação - Desenvolvimento Pessoal G8 - ONE - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Google - AI Essentials - Ravier Quirino da Silva.jpg" alt="Certificado de AI Essentials - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Alura - Formação - Excel VBA - Ravier Quirino da Silva.jpg" alt="Certificado de Formação - Excel VBA - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Microsoft - Python para Iniciantes - Ravier Quirino da Silva.jpg" alt="Certificado de Python para Iniciantes - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\PucRS - Curso de Liderança, Capacidade de Aprender e Resiliência - Ravier Quirino da Silva.jpg" alt="Certificado de Curso de Liderança, Capacidade de Aprender e Resiliência - Ravier Quirino da Silva">
+                </div>
+            </div>
+        </section>
+        
+        <!-- --------------------------------------------------------
+        * SEÇÃO PROJETOS
+        * ----------------------------------------------------- -->
+        <section id="projects" class="container">
+            <div class="section-header reveal">
+                <h2>Projetos</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <a href="https://github.com/RqsXZ/Alura_Challenge_Telecom_X_Parte_1" target="_blank" rel="noopener noreferrer">
+                        <img src="/assets/images/telecom_x_parte1.png" alt="Ilustração do projeto Alura Challenge = Telecom X - Parte 1">
+                    </a>
+                    <div class="project-card-content">
+                        <h3>Alura Challenge - Telecom X - Parte 1</h3>
+                        <p>Desafio da Alura LATAM para analisar o mercado e entender a evasão de clientes da fictícia Telecom X.</p>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <a href="https://github.com/RqsXZ/Alura_Challenge_Telecom_X_Parte_2" target="_blank" rel="noopener noreferrer">
+                        <img src="/assets/images/telecom_x_parte2.png" alt="Ilustração do projeto Alura Challenge = Telecom X - Parte 2">
+                    </a>
+                    <div class="project-card-content">
+                        <h3>Alura Challenge - Telecom X - Parte 2</h3>
+                        <p>Continuação do desafio da Alura LATAM: desenvolvimento de modelos de Machine Learning para prever a evasão de clientes da fictícia Telecom X.</p>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <a href="https://github.com/RqsXZ/Alura_Challenge_Amigo_Secreto" target="_blank" rel="noopener noreferrer">
+                        <img src="/assets/images/alura_challenge_amigo_secreto.png" alt="Ilustração do projeto Alura Challenge - Amigo Secreto">
+                    </a>
+                    <div class="project-card-content">
+                        <h3>Alura Challenge - Amigo Secreto</h3>
+                        <p>Projeto de amigo secreto desenvolvido no curso Iniciante em Programação G8 - ONE, em parceria com a Alura LATAM, com foco em formar duplas entre os participantes.</p>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <a href="https://github.com/RqsXZ/team_fortress2_web_page" target="_blank" rel="noopener noreferrer">
+                        <img src="/assets/images/team_fortress2_fan_page.png" alt="Ilustração do projeto Team Fortress 2 Fan Page">
+                    </a>
+                    <div class="project-card-content">
+                        <h3>Team Fortress 2 - Fan Page</h3>
+                        <p>Página web simples feita com HTML e CSS para praticar, dedicada ao jogo Team Fortress 2, com informações sobre o jogo e seus personagens.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------
+        * SEÇÃO HABILIDADES (SKILLS)
+        * ----------------------------------------------------- -->
+        <section id="skills" class="container">
+            <div class="section-header reveal">
+                <h2>Habilidades</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">Python</div>
+                <div class="skill-card reveal">Excel VBA</div>
+                <div class="skill-card reveal">SAP Automation Scripts</div>
+                <div class="skill-card reveal">Análise de Dados</div>
+                <div class="skill-card reveal">Visualização de Dados</div>
+                <div class="skill-card reveal">Melhoria de Processos</div>
+                <div class="skill-card reveal">Business Intelligence and Analysis</div>
+                <div class="skill-card reveal">Gestão de Dados Industriais</div>
+            </div>
+
+            <div class="section-header reveal">
+                <h3>Idiomas</h3>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">Português - Nativo</div>
+                <div class="skill-card reveal">Inglês - Fluente</div>
+                <div class="skill-card reveal">Espanhol - Intermediário</div>
+                <div class="skill-card reveal">Alemão - Iniciante</div>
+            </div>
+        </section>
+        
+        <!-- --------------------------------------------------------
+        * SEÇÃO CONTATO
+        * ----------------------------------------------------- -->
+        <section id="contact" class="container">
+            <div class="section-header reveal">
+                <h2>Vamos Conversar?</h2>
+                <p>Se dados, Inteligência Artificial e o futuro da tecnologia também são de seu interesse, temos muito em comum. Fique à vontade para entrar em contato! Será um prazer conversar sobre oportunidades, colaborações ou simplesmente trocar ideias.</p>
+            </div>
+            <div class="contact-links reveal">
+                <div class="contact-link">
+                    <a href="https://www.linkedin.com/in/rqs-ravier-quirino/" target="_blank" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+                <div class="contact-link">
+                    <a href="https://github.com/RqsXZ" target="_blank" aria-label="GitHub">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+                 <div class="contact-link">
+                    <a href="mailto:rqds.ravier@gmail.com" aria-label="Email">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================================================= -->
+    <!--! MODAL (LIGHTBOX) PARA VISUALIZAÇÃO DE IMAGENS         -->
+    <!-- ======================================================= -->
+    <div id="modal">
+        <span id="modal-close">&times;</span>
+        <img id="modal-image" src="" alt="Certificado em tamanho real">
+    </div>
+
+
+    <!-- ======================================================= -->
+    <!--! SCRIPTS JAVASCRIPT                                      -->
+    <!-- ======================================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            /* --------------------------------------------------------
+            * 0. LÓGICA DO MENU HAMBÚRGUER
+            * ----------------------------------------------------- */
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            navToggle.addEventListener('click', () => {
+                document.body.classList.toggle('nav-open');
+                navLinks.classList.toggle('active');
+            });
+
+            // Fecha o menu ao clicar em um link
+            document.querySelectorAll('.nav-link a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (document.body.classList.contains('nav-open')) {
+                        document.body.classList.remove('nav-open');
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+
+
+            /* --------------------------------------------------------
+            * 1. LÓGICA DO SLIDESHOW DE FUNDO
+            * ----------------------------------------------------- */
+            const backgroundSlideElements = document.querySelectorAll('.slideshow-image');
+            const bgTransitionInterval = 6000;
+            const imageFolders = {
+                'neural_network1': [
+                    'neural_network1_frame1.png', 
+                    'neural_network1_frame2.png', 
+                    'neural_network1_frame3.png', 
+                    'neural_network1_frame4.png', 
+                    'neural_network1_frame5.png', 
+                    'neural_network1_frame6.png', 
+                    'neural_network1_frame7.png', 
+                    'neural_network1_frame8.png', 
+                    'neural_network1_frame9.png', 
+                    'neural_network1_frame10.png'
+                ],
+
+                'neural_network2': [
+                    'neural_network2_frame1.png', 
+                    'neural_network2_frame2.png', 
+                    'neural_network2_frame3.png', 
+                    'neural_network2_frame4.png', 
+                    'neural_network2_frame5.png', 
+                    'neural_network2_frame6.png', 
+                    'neural_network2_frame7.png', 
+                    'neural_network2_frame8.png', 
+                    'neural_network2_frame9.png', 
+                    'neural_network2_frame10.png'
+                ],
+            };
+            const folderKeys = Object.keys(imageFolders);
+            const randomFolderKey = folderKeys[Math.floor(Math.random() * folderKeys.length)];
+            const baseFolderPath = `assets/backgrounds/${randomFolderKey}/`;
+            const bgImages = imageFolders[randomFolderKey];
+
+            if (bgImages && bgImages.length > 0) {
+                let currentBgImageIndex = -1;
+                let currentBgSlide = 0;
+                const changeBgImage = () => {
+                    let nextImageIndex;
+                    do {
+                        nextImageIndex = Math.floor(Math.random() * bgImages.length);
+                    } while (bgImages.length > 1 && nextImageIndex === currentBgImageIndex);
+                    currentBgImageIndex = nextImageIndex;
+                    const nextImage = baseFolderPath + bgImages[currentBgImageIndex];
+                    const nextSlide = backgroundSlideElements[currentBgSlide];
+                    const prevSlide = backgroundSlideElements[(currentBgSlide + 1) % 2];
+                    nextSlide.style.backgroundImage = `url('${nextImage}')`;
+                    nextSlide.style.opacity = 1;
+                    prevSlide.style.opacity = 0;
+                    currentBgSlide = (currentBgSlide + 1) % 2;
+                };
+                changeBgImage();
+                setInterval(changeBgImage, bgTransitionInterval);
+            }
+
+            /* --------------------------------------------------------
+            * 2. LÓGICA DO SLIDESHOW DA SEÇÃO "SOBRE"
+            * ----------------------------------------------------- */
+            const aboutSlideElements = document.querySelectorAll('.about-slide');
+            const aboutTransitionInterval = 5000;
+            const aboutImages = [
+                'ai_processor1.jpg', 
+                'ai_processor2.jpg', 
+                'ai_processor3.jpg', 
+                'ai_processor4.jpg', 
+                'cad_car1.jpg', 
+                'cad_car2.jpg', 
+                'cad_car3.jpg', 
+                'cad_car4.jpg', 
+                'engineering_drawing1.jpg', 
+                'engineering_drawing2.jpg', 
+                'engineering_drawing3.jpg', 
+                'hand_hologram1.jpg', 
+                'neural_network_brain1.jpg'
+            ];
+            const aboutBaseFolderPath = 'assets/slide_images/';
+
+            if (aboutImages && aboutImages.length > 0) {
+                let currentAboutImageIndex = -1;
+                let currentAboutSlide = 0;
+                const changeAboutImage = () => {
+                    let nextImageIndex;
+                    do {
+                        nextImageIndex = Math.floor(Math.random() * aboutImages.length);
+                    } while (aboutImages.length > 1 && nextImageIndex === currentAboutImageIndex);
+                    currentAboutImageIndex = nextImageIndex;
+                    const nextImage = aboutBaseFolderPath + aboutImages[currentAboutImageIndex];
+                    const nextSlide = aboutSlideElements[currentAboutSlide];
+                    const prevSlide = aboutSlideElements[(currentAboutSlide + 1) % 2];
+                    nextSlide.style.backgroundImage = `url('${nextImage}')`;
+                    nextSlide.style.opacity = 1;
+                    prevSlide.style.opacity = 0;
+                    currentAboutSlide = (currentAboutSlide + 1) % 2;
+                };
+                changeAboutImage();
+                setInterval(changeAboutImage, aboutTransitionInterval);
+            }
+
+            /* --------------------------------------------------------
+            * 3. LÓGICA DO MODAL (LIGHTBOX) DE CERTIFICADOS
+            * ----------------------------------------------------- */
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            const closeModalBtn = document.getElementById('modal-close');
+            const certificateFrames = document.querySelectorAll('.certificate-frame');
+
+            certificateFrames.forEach(frame => {
+                frame.addEventListener('click', () => {
+                    const imgSrc = frame.querySelector('img').src;
+                    modalImage.src = imgSrc;
+                    modal.classList.add('active');
+                    document.body.classList.add('modal-open');
+                });
+            });
+
+            const closeModal = () => {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            };
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+
+            /* --------------------------------------------------------
+            * 4. LÓGICA DE ANIMAÇÃO COM SCROLL REVEAL
+            * ----------------------------------------------------- */
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+
+
+            /* --------------------------------------------------------
+            * 5. LÓGICA DA NAVEGAÇÃO (LINK ATIVO AO ROLAR)
+            * ----------------------------------------------------- */
+            const sections = document.querySelectorAll('section[id]');
+            const navMenuLinks = document.querySelectorAll('.nav-link a'); // Renomeado para evitar conflito
+
+            const header = document.querySelector('.header');
+            
+            function onScroll() {
+                const headerHeight = parseFloat(getComputedStyle(header).height);
+                let scrollY = window.pageYOffset;
+
+                let currentSectionId = '';
+
+                sections.forEach(current => {
+                    const sectionTop = current.offsetTop - headerHeight - 50; 
+                    const sectionHeight = current.offsetHeight;
+
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSectionId = current.getAttribute('id');
+                    }
+                });
+                 // Caso especial para a primeira seção
+                if (scrollY < sections[0].offsetTop - headerHeight - 50) {
+                     currentSectionId = sections[0].getAttribute('id');
+                }
+
+                navMenuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+            onScroll(); // Executa uma vez no carregamento da página
+        });
+    </script>
+</body>
+</html>

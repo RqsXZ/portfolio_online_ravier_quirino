@@ -11,6 +11,7 @@
     <!-- ======================================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets\images\favicon.ico" type="image/x-icon">
     <title>Ravier Quirino | Engenharia Mecânica, Data Science & Tecnologia</title>
 
     <!-- Google Fonts -->
@@ -262,9 +263,9 @@
         .hero {
             text-align: center;
             padding: 180px 0 100px 0;
-            display: flex; 
-            align-items: center; 
-            min-height: 80vh;
+            display: flex; /* Adicionado para centralização vertical */
+            align-items: center; /* Adicionado para centralização vertical */
+            min-height: 80vh; /* Garante altura mínima */
         }
 
         .hero h1 {
@@ -709,6 +710,7 @@
         <div class="container navbar">
             <a href="#" class="logo">
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Caminhos do SVG mantidos como no original -->
                     <path d="M50,10A40,40,0,1,0,90,50,40,40,0,0,0,50,10ZM50,82A32,32,0,1,1,82,50,32,32,0,0,1,50,82Z"/>
                     <path d="M50,22.5A27.5,27.5,0,1,0,77.5,50,27.5,27.5,0,0,0,50,22.5ZM50,72.5A22.5,22.5,0,1,1,72.5,50,22.5,22.5,0,0,1,50,72.5Z"/>
                     <path d="M56.25,43.75a6.25,6.25,0,1,0-12.5,0a6.25,6.25,0,0,0,12.5,0Z"/>
@@ -737,12 +739,14 @@
             </button>
         </div>
     </header>
+
+    <!-- O resto do seu conteúdo HTML permanece o mesmo -->
     
     <main>
         <!-- --------------------------------------------------------
         * SEÇÃO HERO
         * ----------------------------------------------------- -->
-        <section class="hero" id="home">
+        <section class="hero" id="home"> <!-- Adicionado ID para link do logo -->
             <div class="container">
                 <h1 class="reveal">Ravier Quirino</h1>
                 <p class="reveal">Engenharia Mecânica | Data Science | IA e Tecnologia</p>
@@ -758,8 +762,9 @@
                 <p>Confira um resumo do que já estamos vivendo.</p>
             </div>
             <div class="video-container">
-                <video controls poster="main_video/main_video_thumbnail.jpg">
-                    <source src="main_video/main-video_compressed.mp4" type="video/mp4">
+                <!-- Certifique-se de que o caminho para o poster e para o vídeo estejam corretos. -->
+                <video controls poster="assets\main_video\main_video_thumbnail.jpg">
+                    <source src="assets\main_video\main-video_compressed.mp4" type="video/mp4">
                     Seu navegador não suporta a tag de vídeo.
                 </video>
             </div>
@@ -774,7 +779,7 @@
         <section id="about" class="container">
             <div class="about-grid reveal">
                 <div class="about-text">
-                    <img src="images/profile_picture.png" alt="Foto de Ravier Quirino" class="profile-pic">
+                    <img src="/assets/images/profile_picture.png" alt="Foto de Ravier Quirino" class="profile-pic">
                     <h2>Ravier Quirino</h2>
                     <p class="subtitle">Engenheiro Mecânico com foco em Data Science e IA | Python • Análise de Dados • Excel VBA | Inglês Fluente | Espanhol Intermediário</p>
                     <p class="tagline">“A Inteligência Artificial é mais que uma tecnologia, é uma revolução.”</p>
@@ -801,31 +806,37 @@
             </div>
             <div class="certificate-grid">
                 <div class="certificate-frame reveal">
-                    <img src="certificates/UNIP - Diploma de Graduação em Engenharia Mecânica (UNIP) - Ravier Quirino da Silva.jpg" alt="Diploma de Graduação em Engenharia Mecânica - Ravier Quirino da Silva">
+                    <img src="assets\certificates\UNIP - Diploma de Graduação em Engenharia Mecânica (UNIP) - Ravier Quirino da Silva.jpg" alt="Diploma de Graduação em Engenharia Mecânica - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Cambridge University - First Certificate in English - Ravier Quirino da Silva.jpg" alt="First Certificate in English - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Cambridge University - First Certificate in English - Ravier Quirino da Silva.jpg" alt="First Certificate in English - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Alura & Oracle - Conclusão do Programa G8 ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Conclusão do Programa G8 ONE - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Oracle University - AI Foundations Associate Certificate.png" alt="AI Foundations Associate Certificate - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Alura & Oracle - Modelagem de Dados com Python G8 - ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Modelagem de Dados com Python G8 - ONE - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Oracle University - Cloud Foundations Associate Certificate.jpg" alt="Cloud Foundations Associate Certificate - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Alura & Oracle - Conclusão do Programa G8 ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Conclusão do Programa G8 ONE - Ravier Quirino da Silva">
+                </div>
+                <div class="certificate-frame reveal">
+                    <img src="assets\certificates\Alura & Oracle - Modelagem de Dados com Python G8 - ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Modelagem de Dados com Python G8 - ONE - Ravier Quirino da Silva">
                 </div>  
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Alura & Oracle - Formação - Desenvolvimento Pessoal G8 - ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Formação - Desenvolvimento Pessoal G8 - ONE - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Alura & Oracle - Formação - Desenvolvimento Pessoal G8 - ONE - Ravier Quirino da Silva.jpg" alt="Certificado de Formação - Desenvolvimento Pessoal G8 - ONE - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Google - AI Essentials - Ravier Quirino da Silva.jpg" alt="Certificado de AI Essentials - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Google - AI Essentials - Ravier Quirino da Silva.jpg" alt="Certificado de AI Essentials - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Alura - Formação - Excel VBA - Ravier Quirino da Silva.jpg" alt="Certificado de Formação - Excel VBA - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Alura - Formação - Excel VBA - Ravier Quirino da Silva.jpg" alt="Certificado de Formação - Excel VBA - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/Microsoft - Python para Iniciantes - Ravier Quirino da Silva.jpg" alt="Certificado de Python para Iniciantes - Ravier Quirino da Silva">
+                    <img src="assets\certificates\Microsoft - Python para Iniciantes - Ravier Quirino da Silva.jpg" alt="Certificado de Python para Iniciantes - Ravier Quirino da Silva">
                 </div>
                 <div class="certificate-frame reveal">
-                    <img src="certificates/PucRS - Curso de Liderança, Capacidade de Aprender e Resiliência - Ravier Quirino da Silva" alt="Certificado de Curso de Liderança, Capacidade de Aprender e Resiliência - Ravier Quirino da Silva">
+                    <img src="assets\certificates\PucRS - Curso de Liderança, Capacidade de Aprender e Resiliência - Ravier Quirino da Silva.jpg" alt="Certificado de Curso de Liderança, Capacidade de Aprender e Resiliência - Ravier Quirino da Silva">
                 </div>
             </div>
         </section>
@@ -840,7 +851,7 @@
             <div class="projects-grid">
                 <div class="project-card reveal">
                     <a href="https://github.com/RqsXZ/Alura_Challenge_Telecom_X_Parte_1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/telecom_x_parte1.png" alt="Ilustração do projeto Alura Challenge = Telecom X - Parte 1">
+                        <img src="/assets/images/telecom_x_parte1.png" alt="Ilustração do projeto Alura Challenge = Telecom X - Parte 1">
                     </a>
                     <div class="project-card-content">
                         <h3>Alura Challenge - Telecom X - Parte 1</h3>
@@ -849,7 +860,7 @@
                 </div>
                 <div class="project-card reveal">
                     <a href="https://github.com/RqsXZ/Alura_Challenge_Telecom_X_Parte_2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/telecom_x_parte2.png" alt="Ilustração do projeto Alura Challenge = Telecom X - Parte 2">
+                        <img src="/assets/images/telecom_x_parte2.png" alt="Ilustração do projeto Alura Challenge = Telecom X - Parte 2">
                     </a>
                     <div class="project-card-content">
                         <h3>Alura Challenge - Telecom X - Parte 2</h3>
@@ -858,7 +869,7 @@
                 </div>
                 <div class="project-card reveal">
                     <a href="https://github.com/RqsXZ/Alura_Challenge_Amigo_Secreto" target="_blank" rel="noopener noreferrer">
-                        <img src="images/alura_challenge_amigo_secreto.png" alt="Ilustração do projeto Alura Challenge - Amigo Secreto">
+                        <img src="/assets/images/alura_challenge_amigo_secreto.png" alt="Ilustração do projeto Alura Challenge - Amigo Secreto">
                     </a>
                     <div class="project-card-content">
                         <h3>Alura Challenge - Amigo Secreto</h3>
@@ -867,7 +878,7 @@
                 </div>
                 <div class="project-card reveal">
                     <a href="https://github.com/RqsXZ/team_fortress2_web_page" target="_blank" rel="noopener noreferrer">
-                        <img src="images/team_fortress2_fan_page.png" alt="Ilustração do projeto Team Fortress 2 Fan Page">
+                        <img src="/assets/images/team_fortress2_fan_page.png" alt="Ilustração do projeto Team Fortress 2 Fan Page">
                     </a>
                     <div class="project-card-content">
                         <h3>Team Fortress 2 - Fan Page</h3>
@@ -1005,7 +1016,7 @@
             };
             const folderKeys = Object.keys(imageFolders);
             const randomFolderKey = folderKeys[Math.floor(Math.random() * folderKeys.length)];
-            const baseFolderPath = `backgrounds/${randomFolderKey}/`;
+            const baseFolderPath = `assets/backgrounds/${randomFolderKey}/`;
             const bgImages = imageFolders[randomFolderKey];
 
             if (bgImages && bgImages.length > 0) {
@@ -1049,7 +1060,7 @@
                 'hand_hologram1.jpg', 
                 'neural_network_brain1.jpg'
             ];
-            const aboutBaseFolderPath = 'slide_images/';
+            const aboutBaseFolderPath = 'assets/slide_images/';
 
             if (aboutImages && aboutImages.length > 0) {
                 let currentAboutImageIndex = -1;
@@ -1126,7 +1137,7 @@
             * 5. LÓGICA DA NAVEGAÇÃO (LINK ATIVO AO ROLAR)
             * ----------------------------------------------------- */
             const sections = document.querySelectorAll('section[id]');
-            const navMenuLinks = document.querySelectorAll('.nav-link a');
+            const navMenuLinks = document.querySelectorAll('.nav-link a'); // Renomeado para evitar conflito
 
             const header = document.querySelector('.header');
             
@@ -1158,11 +1169,8 @@
             }
 
             window.addEventListener('scroll', onScroll);
-            onScroll();
+            onScroll(); // Executa uma vez no carregamento da página
         });
     </script>
 </body>
-
 </html>
-
-
